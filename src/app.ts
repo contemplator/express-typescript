@@ -4,6 +4,9 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 // import HeroRouter from './routes/hero';
 import { HeroController } from './controllers';
+import { UsersController } from './controllers';
+import { attachControllers } from '@decorators/express';
+
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -44,6 +47,7 @@ class App {
 
         this.express.use('/', router);
         this.express.use('/hero', HeroController);
+        attachControllers(this.express, [UsersController]);
     }
 
 }
