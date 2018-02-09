@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 describe('Get Heho list', () => {
     it('it should be array and length is not zero', ()=>{
-        return chai.request(app).get('/heros')
+        return chai.request(app).get('/heroes')
         .then((res)=>{
             expect(res.status).to.equal(200);
             expect(res).to.be.json;
