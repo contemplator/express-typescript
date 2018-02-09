@@ -17,4 +17,21 @@ describe('Get Heho list', () => {
             expect(res.body).not.have.length(0);
         });
     });
+
+    it('the first one should be leo', ()=>{
+        return chai.request(app).get('/heroes/1')
+        .then((res)=>{
+            let hero = res.body;
+            expect(res).to.be.json;
+            expect(hero).to.have.all.keys(['id', 'name', 'level', 'skills']);
+            expect(hero.name).to.equal('Leo');
+        });
+    });
+
+    it('the sixth hero should not exist', ()=>{
+        return chai.request(app).get('/heroes/6')
+        .then((res)=>{
+            expect(res.body).to.equal(null);
+        });
+    });
 });
