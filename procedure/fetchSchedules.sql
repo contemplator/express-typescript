@@ -1,14 +1,17 @@
 drop procedure if exists fetchSchedules;
 delimiter #
 create procedure fetchSchedules (
-	in date date
+	params JSON 
 )
 begin
-    select *
+    declare date varchar(10) default ""; 
+    set date = JSON_UNQUOTE(JSON_EXTRACT(params, '$.date'));
+
+	select *
     from schedule
     where schedule.date = date;
 end#
 
 delimiter ;
 call fetchSchedules
-('2018-02-09');
+('{"date": "2018-02-09"}');

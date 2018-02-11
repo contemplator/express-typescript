@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 describe('Get Schedule', () => {
     it('today should have schedule', () => {
-        return chai.request(app).get('/schedule/2018-02-09')
+        return chai.request(app).post('/schedule').send({"date": "2018-02-09"})
             .then((res) => {
                 expect(res).to.be.json;
                 let schedules = res.body
@@ -18,10 +18,10 @@ describe('Get Schedule', () => {
     });
 
     it('error date should return error', () => {
-        return chai.request(app).get('/schedule/2018-02-29')
+        return chai.request(app).post('/schedule').send({"date": "2018-02-30"})
             .then(res => {
                 expect(res).to.be.json;
-                expect(res.body.sqlMessage).to.not.equal('');
+                expect(res.body).to.have.length(0)
             })
     });
 });

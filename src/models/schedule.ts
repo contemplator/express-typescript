@@ -9,11 +9,11 @@ export class ScheduleModel {
     constructor() {
     }
 
-    callProcedure(name: string, date: any): Promise<any> {
+    callProcedure(name: string, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.db = mysql.createConnection(appConfig.dbOptions);
             this.db.connect();
-            this.db.query(`call ${name}('${date}');`, (error, rows, fields) => {
+            this.db.query(`call ${name}('${JSON.stringify(data)}');`, (error, rows, fields) => {
                 if (error) { reject(error) }
                 else { resolve(rows[0]); }
                 this.db.end();
@@ -21,7 +21,7 @@ export class ScheduleModel {
         })
     }
 
-    getSchedules(date: string): Promise<any> {
-        return this.callProcedure('fetchSchedules', date);
+    getSchedules(data: any): Promise<any> {
+        return this.callProcedure('fetchSchedules', data);
     }
 }

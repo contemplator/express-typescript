@@ -11,14 +11,13 @@ export class ScheduleController {
         this.scheduleModel = new ScheduleModel();
     }
 
-    @Get('/:date')
+    @Post('/')
     getSchedules(req: Request, res: Response) {
-        let date = req.params.date;
-        this.scheduleModel.getSchedules(date).then((result: any) => {
+        let data = req.body;
+        this.scheduleModel.getSchedules(data).then((result: any) => {
             res.json(result);
         }).catch(error=>{
             res.json(error);
         });
-
     }
 }
