@@ -14,4 +14,4 @@ end#
 
 delimiter ;
 call fetchSchedules
-('{"date": "2018-02-09"}');
+('{"date": "2018-03-05"}');

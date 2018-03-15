@@ -24,6 +24,6 @@ export class UsersController {
     getUserInfo( req: Request, res: Response) {
         let id = req.body.id;
         let attribute = req.body.attr;
-        res.send(req.body);
+        res.json(req.body);
     }
 }
