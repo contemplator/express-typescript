@@ -3,13 +3,12 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as fs from 'fs';
-import { HeroController, UsersController, ScheduleController, DemoController, WeappController } from './controllers';
+import { WeappController } from './controllers';
 import { attachControllers } from '@decorators/express';
 
-import * as session from 'wafer-node-session';
+let session: any = require('wafer-node-session');
 var MySQLStore = require('express-mysql-session')(session);
 import { dbOptions } from './app-config';
-import { WexinTextController } from './controllers/wexin-text';
 import { WexinController } from './controllers/wexin';
 
 // Creates and configures an ExpressJS web server.
@@ -52,14 +51,7 @@ class App {
 
     // Configure API endpoints.
     private routes(): void {
-        this.express.use('/hero', HeroController);
-        // this.express.use('/me', (request:any, response, next) => { 
-        //     response.json(request.session ? request.session.userInfo : { noBody: true }); 
-        //     if (request.session) {
-        //         console.log(`Wafer session success with openId=${request.session.userInfo.openId}`);
-        //     }
-        // }); 
-        attachControllers(this.express, [UsersController, ScheduleController, DemoController, WeappController, WexinTextController, WexinController]);
+        attachControllers(this.express, [WeappController, WexinController]);
     }
 }
 

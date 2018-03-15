@@ -13,7 +13,7 @@ export class WeappController {
     }
 
     @Post('/login')
-    login(req: any, res: Response) {
+    login(req: Request, res: Response) {
         let data = req.body;
         this.model.callProcedure('login', data).then((result: any) => {
             res.json(result);
@@ -23,7 +23,7 @@ export class WeappController {
     }
 
     @Post('/fetchSchedules')
-    fetchSchedules(req, res) {
+    fetchSchedules(req: Request, res: Response) {
         let data = req.body;
         this.model.callProcedure('fetchSchedules', data).then(result => {
             res.json(result);
@@ -33,7 +33,7 @@ export class WeappController {
     }
 
     @Post('/getOpenId')
-    getOpenId(req, res) {
+    getOpenId(req: Request, res: Response) {
         const code = req.body.code;
         const appid = 'wx6b906029ede29d16';
         const secret = 'b1917f4c09c7237d073e9f05cf64e699';
@@ -54,7 +54,7 @@ export class WeappController {
     }
 
     @Post('/preRegister')
-    preRegister(req, res) {
+    preRegister(req: Request, res: Response) {
         let data = req.body;
         this.model.callProcedure('preRegister', data).then(result => {
             res.json(true);
@@ -66,7 +66,7 @@ export class WeappController {
     }
 
     @Get('/getAccessToken')
-    getAccessToken(req, res) {
+    getAccessToken(req: Request, res: Response) {
         const code = req.body.code;
         const appid = 'wx6b906029ede29d16';
         const secret = 'b1917f4c09c7237d073e9f05cf64e699';
@@ -86,7 +86,7 @@ export class WeappController {
         });
     }
 
-    postTemplateMsg(formId) {
+    postTemplateMsg(formId: string) {
         const token = '7_6ORoJXdDGAh1pC_BdLFySxX3NNk-A83FtuUTuhJw2RlyH7XFwV37GPjYRbwFiumDkt5vU59L5LvVfaduN2lKl_9sXQdIp3NZNEk5QJmzrQUHVPTgdhyvYkETbXtcCiikgOdyyGP-xw5Q4-P_CZGfAJAKHO';
         var data = {
             touser: 'oAIP10D0rx4aIVRfa-Yy52GCJh3M',

@@ -12,10 +12,6 @@ interface Date {
     countAge: (birthday: string) => number;
 }
 
-Date.prototype.addSeconds = (seconds: number) => {
-    return new Date(this.getTime() + seconds * 1000);
-};
-
 /**
  * 加幾秒鐘
  */
