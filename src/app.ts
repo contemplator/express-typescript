@@ -8,7 +8,7 @@ import { attachControllers } from '@decorators/express';
 
 let session: any = require('wafer-node-session');
 var MySQLStore = require('express-mysql-session')(session);
-import { dbOptions } from './app-config';
+import { dbConfig, wexinConfig } from './app-config';
 import { WexinController } from './controllers/wexin';
 
 // Creates and configures an ExpressJS web server.
@@ -30,18 +30,12 @@ class App {
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
         // 微信 session
-        var sessionStore = new MySQLStore({
-            host: 'localhost',
-            port: 3306,
-            user: 'tudi01',
-            password: 'tudi01',
-            database: 'tudi_cn_his'
-        });
+        var sessionStore = new MySQLStore(dbConfig);
         this.express.use(session({
-            appId: 'wx6b906029ede29d16',           // 小程序 appId 
-            appSecret: 'b1917f4c09c7237d073e9f05cf64e699',       // 小程序 appSecret 
-            loginPath: '/login',    // 登录地址 
-            store: sessionStore      // 会话存储 
+            appId: wexinConfig.appid,
+            appSecret: wexinConfig.secret,
+            loginPath: '/login',
+            store: sessionStore
         }));
 
         // create a write stream (in append mode)

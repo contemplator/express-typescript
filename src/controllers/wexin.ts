@@ -53,7 +53,6 @@ export class WexinController {
     accessToken(req: Request, res: Response) {
         let wechat = WeChat.Instance;
         wechat.getAccessToken().then(response => {
-            console.log(response);
             res.json(response);
         });
     }

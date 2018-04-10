@@ -3,12 +3,12 @@ import { resolve } from 'path';
 
 export class WeChat {
     private static _instance: WeChat;
+    private appid: string = 'wx6b906029ede29d16';
+    private secret: string = 'b1917f4c09c7237d073e9f05cf64e699';
+    public token: string = '';
+    public expireTime: number = 0;
 
     private constructor(){ }
-
-    appid: string = 'wx6b906029ede29d16';
-    secret: string = 'b1917f4c09c7237d073e9f05cf64e699';
-    token: string = '';
 
     public static get Instance(){
         return this._instance || (this._instance = new this());
@@ -19,17 +19,23 @@ export class WeChat {
             request.post({
                 url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`,
                 json: true
-            }, function (error, response, body) {
+            }, (error, response, body) => {
                 if (!error && response.statusCode === 200) {
-                    // Return false if succeeded, else true
+                    this.token = body.access_token;
+                    const now = new Date();
+                    this.expireTime = now.addSeconds(body.expires_in).getTime();
                     resolve(body);
-                    console.log(false, body);
                 } else {
                     reject(body);
-                    console.error(false, body);
                 }
             });
         });
         
+    }
+
+    public checkTokenIsWork(): boolean{
+        const now = (new Date()).getTime();
+        console.log(this.expireTime, now);
+        return this.expireTime > now;
     }
 }
