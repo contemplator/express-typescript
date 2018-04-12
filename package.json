@@ -1,6 +1,6 @@
 {
     "name": "weapp",
-    "version": "1.0.0",
+    "version": "0.0.2",
     "description": "從 nodejs、express 和 typescript 到 微信小程序 server",
     "main": "index.js",
     "scripts": {

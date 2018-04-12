@@ -8,14 +8,14 @@ export class WeChat {
     public token: string = '';
     public expireTime: number = 0;
 
-    private constructor(){ }
+    private constructor() { }
 
-    public static get Instance(){
+    public static get Instance() {
         return this._instance || (this._instance = new this());
     }
 
-    public getAccessToken(){
-        return new Promise((resolve, reject)=>{
+    public getAccessToken() {
+        return new Promise((resolve, reject) => {
             request.post({
                 url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.appid}&secret=${this.secret}`,
                 json: true
@@ -30,12 +30,24 @@ export class WeChat {
                 }
             });
         });
-        
+
     }
 
-    public checkTokenIsWork(): boolean{
+    public checkTokenIsWork(): boolean {
         const now = (new Date()).getTime();
-        console.log(this.expireTime, now);
-        return this.expireTime > now;
+        return this.expireTime - now > 10000;
+    }
+
+    public getOnlyToken(): Promise<any> {
+        return new Promise((resolve) => {
+            if (this.checkTokenIsWork()) {
+                return resolve(this.token);
+            } else {
+                this.getAccessToken().then(()=>{
+                    return resolve(this.token);
+                });
+            }
+        })
+
     }
 }

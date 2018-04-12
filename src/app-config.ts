@@ -8,5 +8,6 @@ export let dbConfig: any = {
 
 export let wexinConfig = {
     appid: 'wx6b906029ede29d16',
-    secret: 'b1917f4c09c7237d073e9f05cf64e699'
+    secret: 'b1917f4c09c7237d073e9f05cf64e699',
+    token: 'tudi'
 };
