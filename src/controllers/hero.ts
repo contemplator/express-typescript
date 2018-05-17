@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Params, Controller, Get, Post } from '@decorators/express';
-import * as request from 'request';
 import { Hero } from '../models';
 
 @Controller('/hero')

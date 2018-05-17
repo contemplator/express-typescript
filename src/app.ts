@@ -6,6 +6,8 @@ import * as fs from 'fs';
 import { attachControllers } from '@decorators/express';
 import { dbConfig } from './app-config';
 import { HeroController } from './controllers';
+import { Student } from './models/student';
+import { StudentController } from './controllers/student';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -33,7 +35,7 @@ class App {
 
     // Configure API endpoints.
     private routes(): void {
-        attachControllers(this.express, [HeroController]);
+        attachControllers(this.express, [HeroController, StudentController]);
     }
 }
 
