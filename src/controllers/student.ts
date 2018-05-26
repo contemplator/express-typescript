@@ -12,44 +12,45 @@ export class StudentController {
   }
 
   @Get('/query')
-  query(req: Request, res: Response) {
-    this.model.callProcedure('queryStudents').then((result: any) => {
+  async query(req: Request, res: Response) {
+    try {
+      const result = await this.model.callProcedure('queryStudents');
       res.json(result[0]);
-    }).catch((error: any) => {
+    } catch (error) {
       res.json(error);
-    });
+    }
   }
 
   @Post('/add')
-  add(req: Request, res: Response) {
-    const data = req.body;
-    this.model.callProcedure('addStudent', data).then((result: any) => {
+  async add(req: Request, res: Response) {
+    try {
+      const data = req.body;
+      const result = await this.model.callProcedure('addStudent', data);
       res.json(result[0]);
-    }).catch((error: any) => {
+    } catch (error) {
       res.json(error);
-    });
+    }
   }
 
   @Post('/update')
-  update(req: Request, res: Response) {
-    const data = req.body;
-    this.model.callProcedure('updateStudent', data).then((result: any) => {
+  async update(req: Request, res: Response) {
+    try {
+      const data = req.body;
+      const result = await this.model.callProcedure('updateStudent', data);
       res.json(result[0]);
-    }).catch((error: any) => {
+    } catch (error) {
       res.json(error);
-    });
+    }
   }
 
   @Post('/delete')
-  delete(req: Request, res: Response) {
-    const data = req.body;
-    this.model.callProcedure('deleteStudent', data).then((result: any) => {
-      res.json(result[0].res);
-    }).catch((error: any) => {
+  async delete(req: Request, res: Response) {
+    try {
+      const data = req.body;
+      const result = await this.model.callProcedure('deleteStudent', data);
+      res.json(result[0]);
+    } catch (error) {
       res.json(error);
-    });
+    }
   }
-
-
-
 }

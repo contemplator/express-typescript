@@ -11,37 +11,57 @@ export class HeroController {
   ];
 
   @Get('/all')
-  getAllHeroes(req: Request, res: Response) {
-    res.json(this.heroes);
+  async getAllHeroes(req: Request, res: Response) {
+    try {
+      res.json(this.heroes);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   @Get('/:id')
-  getHero(req: Request, res: Response) {
-    const id = parseInt(req.params.id, 10);
-    const match = this.heroes.find(item => item.id === id);
-    res.json(match);
+  async getHero(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const match = this.heroes.find(item => item.id === id);
+      res.json(match);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   @Post('/add')
-  addHero(req: Request, res: Response) {
-    const params = req.body;
-    const hero = new Hero(this.heroes.length + 1, params.name, params.skills);
-    this.heroes.push(hero);
-    res.json(hero);
+  async addHero(req: Request, res: Response) {
+    try {
+      const params = req.body;
+      const hero = new Hero(this.heroes.length + 1, params.name, params.skills);
+      this.heroes.push(hero);
+      res.json(hero);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   @Post('/query')
-  queryHeroes(req: Request, res: Response) {
-    const keyword = req.body.skills;
-    const matches = this.heroes.filter(item => item.skills.indexOf(keyword) > -1);
-    res.json(matches);
+  async queryHeroes(req: Request, res: Response) {
+    try {
+      const keyword = req.body.skills;
+      const matches = this.heroes.filter(item => item.skills.indexOf(keyword) > -1);
+      res.json(matches);
+    } catch (error) {
+      res.json(error);
+    }
   }
 
   @Post('/delete')
-  delete(req: Request, res: Response) {
-    const index = this.heroes.findIndex(item => item.id === req.body.id);
-    this.heroes.splice(index, 1);
-    if (this.heroes.length === 3) { res.json(true); }
-    else { res.json(false); }
+  async delete(req: Request, res: Response) {
+    try {
+      const index = this.heroes.findIndex(item => item.id === req.body.id);
+      this.heroes.splice(index, 1);
+      if (this.heroes.length === 3) { res.json(true); }
+      else { res.json(false); }
+    } catch (error) {
+      res.json(error);
+    }
   }
 }

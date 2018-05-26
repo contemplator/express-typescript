@@ -8,7 +8,9 @@ export class DbModel {
     return new Promise((resolve, reject) => {
       let db = mysql.createConnection(appConfig.dbConfig);
       db.connect();
-      db.query(`call ${name}('${JSON.stringify(data)}');`, (error: mysql.MysqlError, rows: any[]) => {
+      data = data ? JSON.stringify(data) : '{}';
+      db.query(`call ${name}('${data}');`, (error: mysql.MysqlError, rows: any[]) => {
+        // console.log(error);
         if (error) { reject(error) }
         else { resolve(rows[0]); }
         db.end();
