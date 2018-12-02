@@ -43,3 +43,6 @@ Thumbs.db
 
 # server log
 **/*.log
+
+# prevent from npm install error
+package-lock.json
